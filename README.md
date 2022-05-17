@@ -25,7 +25,7 @@
       <img src="https://user-images.githubusercontent.com/62709718/168320615-0e31581a-2419-401b-8202-f3e9889a5d31.png" width="100px;" alt="신원세"/>
     </td>
     <td align="center">
-      <img src="" width="100px;" alt="이광해"/>
+      <img src="https://github.com/account" width="100px;" alt="이광해"/>
     </td>
     <td align="center">
       <img src="" width="100px;" alt="좌정현"/>
