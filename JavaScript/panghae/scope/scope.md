@@ -25,20 +25,20 @@
 
       // 2. lexing
       // lex {
-      // type : div
-      // text : h1
+        // type : div
+        // text : h1
       // },
       // lex {
-      // type : h1
+        // type : h1
       // }
 
       // 3. parsing
       // lex {
-      // type : h1
-      // children : lex {
-      // type : div
-      // text : FEkachu
-      // }
+        // type : h1
+        // children : lex {
+          // type : div
+          // text : FEkachu
+        // }
       // }
       ```
   - 그렇다면 lexical scope란?
