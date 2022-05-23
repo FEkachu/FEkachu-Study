@@ -16,6 +16,42 @@
         - null
         - Symbol ( ES6 ~ )
         - BigInt ( ES2020 ~ )
+          - BigInt란?
+
+            BigInt는 Number type이 안정적으로 나타낼 수 있는 값인 2^53-1보다 큰 수를 표현할 수 있도록 추가됨.
+
+            Javascript는 특정 값을 얻을 때, 정확성 여부를 판별할 수 있는 방법이 없음. 따라서 안전한 정수 범위를 벗어나는 수에 대한 계산은 정밀도를 잃게 된다.
+
+            ```jsx
+            const num = Number.MAX_SAFE_INTEGER;
+            // 9007199254740991
+            console.log(num + 1);
+            // 9007199254740992
+            console.log(num + 2);
+            // 9007199254740992
+            ```
+
+          - 사용 방법
+            1. 정수 리터럴 + n
+            2. BigInt() 호출
+
+            ```jsx
+            console.log(typeof 10n); // bigint
+            console.log(BigInt(10) === 10n); /// true
+            ```
+
+          - 주의할 점
+            - BigInt는 Number와 연산 혼합이 불가능하다.
+            - 내장 Math 객체의 메서드와 함께 사용이 불가능하다.
+            - 비교 연산 사용(===, ==, >, <) 시에는 정밀도 손실 위험 없이 사용 가능하다.
+
+            ```jsx
+            console.log(10n + 2.5); // TypeError
+            console.log(2.5n); // SyntaxError
+      
+            console.log(3n > 2); // true
+            console.log(2n > 2); // false
+            ```
 
       객체 타입
 
