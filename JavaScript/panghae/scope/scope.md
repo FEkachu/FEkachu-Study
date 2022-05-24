@@ -25,20 +25,20 @@
 
       // 2. lexing
       // lex {
-      // type : div
-      // text : h1
+        // type : div
+        // text : h1
       // },
       // lex {
-      // type : h1
+        // type : h1
       // }
 
       // 3. parsing
       // lex {
-      // type : h1
-      // children : lex {
-      // type : div
-      // text : FEkachu
-      // }
+        // type : h1
+        // children : lex {
+          // type : div
+          // text : FEkachu
+        // }
       // }
       ```
   - 그렇다면 lexical scope란?
@@ -82,33 +82,61 @@
       4. eval()
       EC는 함수 실행할 때 참조를 위해 생성되며, 실행 때의 전반적인 상황을 파악하기 위해 생성되는 자료구조이다. EC는 실행 시, scope가 참조하는 대상이 된다.
     - 실행 컨텍스트는 각각 따로 생성되며, global ec를 제외한 ec들은 부모 ec를 담고 있다.
-    ```jsx
-    var i = 0; // 1
+    - 실행 컨택스트 구조
+      - thisBinding : 실행 컨택스트가 바라봐야하는 this
+      - Variable Environment : 최초의 스냅샷을 담고 있다.
+      - Lexical Environment : 실제로 사용되는 정보를 담고 있다.
 
-    function runA() {
-      // 2
-      console.log(i); // 4
-    }
-    runA(); // 3
+        ![Untitled](https://velog.velcdn.com/images%2Fggong%2Fpost%2F9199d986-67ea-497b-9259-0351b10b3a7c%2F%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-06-01%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.18.29.png)
 
-    // global EC
-    // variables : {i (1 실행 시 담김), runA : 함수 내용 (2 실행 시 담김)}
+    - Javascript는 위 네 가지 경우에 실행 컨택스트를 생성하며 이를 Call Stack이라는 곳에 push한다. 코드와 이미지로 실행 컨텍스트가 생기고 사라지는 것을 확인할 수 있다.
 
-    // runA EC (3 실행 시 생성)
-    // parents : global EC
-    // variables : {}
+        ```jsx
+        // ------------------------ (1)
+        var a = 1;
+        function outer() {
+           function inner() {
+              console.log(a);
+              var a = 3;
+              // ------------------ (2)
+           }
+           inner(); // ------------ (3)
+           console.log(a);
+           // --------------------- (4)
+        }
+        outer(); // --------------- (5)
+        console.log(a);
+        // ------------------------ (6)
+        ```
 
-    // log EC (4 실행 시 생성)
-    // parents : runA EC
-    // variables : {data : i}
-    // 해당 블록에서 설명하는 EC는 간단한 버전
+      ![Untitled](https://miro.medium.com/max/700/1*opiv5MPSWom3U-wT8NzIzw.png)
+        ```jsx
+        var i = 0; // 1
 
-    // EC
-    // lexical environment : 값이 변경되는 것이 기록된다.
-    // variable environment : snapshot(원본이 담겨있다. ,[environmentRecord, outer-environmentRecord])
-    // 해당 EC의 this
-    ```
-    위의 예제 코드에서 console.log()가 실행되면 log EC가 생성되고, i를 검색하는데 해당 EC에서 찾을 수 없을 시, 부모 EC로 이동하면서 i를 탐색한다. 이를 스코프 체이닝이라고 한다.
+        function runA() {
+          // 2
+          console.log(i); // 4
+        }
+        runA(); // 3
+
+        // global EC
+        // variables : {i (1 실행 시 담김), runA : 함수 내용 (2 실행 시 담김)}
+
+        // runA EC (3 실행 시 생성)
+        // parents : global EC
+        // variables : {}
+
+        // log EC (4 실행 시 생성)
+        // parents : runA EC
+        // variables : {data : i}
+        // 해당 블록에서 설명하는 EC는 간단한 버전
+
+        // EC
+        // lexical environment : 값이 변경되는 것이 기록된다.
+        // variable environment : snapshot(원본이 담겨있다. ,[environmentRecord, outer-environmentRecord])
+        // 해당 EC의 this
+        ```
+        위의 예제 코드에서 console.log()가 실행되면 log EC가 생성되고, i를 검색하는데 해당 EC에서 찾을 수 없을 시, 부모 EC로 이동하면서 i를 탐색한다. 이를 스코프 체이닝이라고 한다.
 - var, let, const
   - 변수 선언 과정
     1. 변수 선언 → 스코프, EC에 등록된다.
