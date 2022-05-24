@@ -246,3 +246,76 @@ function bar() {
 foo(); //1
 bar(); //1
 ```
+
+## 5/17 스터디 추가 내용
+
+- 실행 컨텍스트
+
+  ```javascript
+  var name = "zero"; // (1)변수 선언 (6)변수 대입
+  function wow(word) {
+    // (2)변수 선언 //(3)변수 대입
+    console.log(word + " " + name); // (11)
+  }
+  function say() {
+    // (4)변수 선언 (5)변수 대입
+    var name = "nero"; // (8)
+    console.log(name); // (9)
+    wow("hello"); // (10)
+  }
+  say(); //(7)
+  ```
+
+  참조 : https://www.zerocho.com/category/JavaScript/post/5741d96d094da4986bc950a0
+
+- 렉시컬 환경
+
+  ```js
+  function makeCounter() {
+    let count = 0;
+
+    return function () {
+      return count++;
+    };
+  }
+
+  let counter = makeCconter();
+  console.log(counter()); // 0
+  console.log(counter()); // 1
+  console.log(counter()); // 2
+
+  console.log(makeCconter()()); // 0
+  console.log(makeCconter()()); // 0
+  console.log(makeCconter()()); // 0
+  ```
+
+  위 중첩 함수에서 함수 호출을 변수에 저장해두고 쓰면 하나의 렉시컬 환경이 만들어진다. 중첩된 함수를 여러번 호출할 때 하나의 `makeCounter()` 함수를 외부 렉시컬 환경으로 참조하므로 `count`가 증가된 값들이 반영된다.
+
+  하지만 함수를 3번 호출한 경우 3개의 고유한 렉시컬 환경(`makeCounter`)이 만들어지고, 중첩된 함수는 각각의 서로 다른 외부 렉시컬 환경을 참조하기 때문에 원치 않는 결과가 나타난다.
+
+  참조 : https://intrepidgeeks.com/tutorial/javascript-directory-environment
+
+- for, var, setTimeout
+
+  ```javascript
+  for (var i = 0; i < 3; i++) {
+    setTimeout(() => {
+      console.log(i);
+    }, 100);
+  }
+  // 3, 3, 3
+
+  for (let i = 0; i < 3; i++) {
+    setTimeout(() => {
+      console.log(i);
+    }, 100);
+  }
+  // 0, 1, 2
+  ```
+
+  1. 자바스크립트 엔진은 `setTimeout`을 API에게 처리하도록 맡기고나서 `for`문을 먼저 돌린다. (자바스크립트의 비동기 처리 방식 때문) 따라서 for문이 먼저 동작 => 그 다음 `setTimeout`
+  2. `var`는 함수 스코프이므로 `var`를 쓰면 `for`문 안에서 빠르게 돌다가 조건문인 `i < 6` 을 만나면 `i = 6`에서 멈춰서 문서의 최상단으로 올라가서 멈춰있는다.
+  3. API를 거쳐 이벤트 루프를 거쳐 뒤늦게 나타난 `setTimeout`은 `for`문으로 들어가 변수를 찾지만 `for`문에는 `var`가 없으므로 문서의 최상단으로 올라가 이미 변해버린 변수 `i`를 만나게 된다. 따라서 3이 3번 동작하게 된다.
+  4. `let`을 사용할 경우 블록 스코프이므로 `i`가 매 루프마다 재생산되고, `setTimeout`은 항상 재생산된 변수에 접근하게 된다.
+
+참조 : https://intrepidgeeks.com/tutorial/use-settimeout-to-understand-the-difference-between-var-and-let
