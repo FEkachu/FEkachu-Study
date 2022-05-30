@@ -59,7 +59,7 @@
         <aside>
         💡 객체 리터럴 vs 배열 리터럴
         
-        ![스크린샷 2022-05-31 오전 1.59.30.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d34f76b6-e0dc-4a80-8b4f-045598e200cb/스크린샷_2022-05-31_오전_1.59.30.png)
+        ![스크린샷 2022-05-31 오전 1.59.30.png](./img/스크린샷_2022-05-31_오전_1.59.30.png)
         
         - 근본적 차이
             - 배열 리터럴 `arr`의 프로토타입 객체는 `Array.prototype`
@@ -428,7 +428,7 @@ console.log(Object.is(b,0));     //false
 
  `원시값`은 **값** 복사, `객체`/`함수` 등의 `합성값`은 **레퍼런스** 복사
 
-![스크린샷 2022-05-31 오전 2.25.14.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d9db28c9-34c5-40d0-8c65-8607cdcdbbec/스크린샷_2022-05-31_오전_2.25.14.png)
+![스크린샷 2022-05-31 오전 2.25.14.png](./img/스크린샷_2022-05-31_오전_2.25.14.png)
 
 - 원시값은 콜스택에 저장, 이미 콜스택에 저장되어 있는 값이면 그 값의 주소를 가리킴
 - 메모리 힙은 항상 새로운 주소를 만듦
@@ -452,24 +452,24 @@ console.log(Object.is(b,0));     //false
     - 위 코드의 메모리 구조
         1. 초기
         
-        ![IMG_0116.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/28176a71-c3eb-4aaa-b09b-7f22c8b965ee/IMG_0116.jpg)
+        ![IMG_0116.jpg](./img/IMG_0116.jpg)
         
         1. `hello(a)` : `hello()`함수에 들어감
             
-            ![IMG_0117.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cab5c14b-4c7a-4e4e-9034-c33703bcb9a9/IMG_0117.jpg)
+            ![IMG_0117.jpg](./img/IMG_0117.jpg)
             
         2. x.push(7);
             
-            ![IMG_0118.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c2031736-0d9a-49ff-a69f-0cc8cc2878a5/IMG_0118.jpg)
+            ![IMG_0118.jpg](./img/IMG_0118.jpg)
             
         3. x=[4,5,6];
             
-            ![IMG_0119.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f6393f08-f7b6-43bf-9e2a-235bd8ef5495/IMG_0119.jpg)
+            ![IMG_0119.jpg](./img/IMG_0119.jpg)
             
         4. x.push(8);
             
-            ![IMG_0120.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ff13da0b-01c4-4159-978c-bad3b8f8658a/IMG_0120.jpg)
+            ![IMG_0120.jpg](./img/IMG_0120.jpg)
             
         
         → **결과**
-            ![IMG_0121.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b1ea314d-f613-47e2-8d6f-322819229d52/IMG_0121.jpg)
+            ![IMG_0121.jpg](./img/IMG_0121.jpg)
