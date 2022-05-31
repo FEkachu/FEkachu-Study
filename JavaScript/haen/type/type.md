@@ -53,6 +53,7 @@ console.log(typeof b);  //undefined
     
     <aside>
     💡 `undefined` vs `null`
+
     이 둘의 차이는 등록, 저장의 여부
     ****     - `null`은 값은 값이지만, 의미없는 특별한 값이 저장되어 있는 것
          - `undefined`은 값 자체가 없음
