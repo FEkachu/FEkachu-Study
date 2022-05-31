@@ -214,3 +214,64 @@ foo = true;
    따라서 변수 b에 저장되는 콜스택 주소값도 변경된다.
 
    💡 **객체 타입은 동일한 구성의 객체를 생성하더라도 매번 새 메모리를 확보하여 새 객체를 생성한다.**
+
+## 5/24 스터디 내용 추가
+
+- 자바스크립트에서는 `var`, `let`, `const` 로 변수를 선언하므로 변수가 타입을 갖는 것이 아니라 **값이 타입을 가진다.**
+
+- falsy  
+  falsy 란 '거짓 같은 값'을 말한다. 즉, `boolean` 문맥에서 `false`로 평가되는 값이다.
+
+  - `false`
+  - `0`
+  - `-0`
+  - `0n`
+  - `''`
+  - `null`
+  - `undefined`
+  - `NaN`
+
+  위의 값들을 제외한 다른 값은 모두 `true`로 평가된다.  
+   \* 빈 배열(`[]`)은 `true`이다.
+
+- `null` 타입 파악 방법
+
+  ```js
+  // 정확한 null 타입 파악 방법
+  let a = null;
+  if (!a && typeof a === "object") {
+    console.log(true);
+  } else {
+    console.log(false);
+  } // true
+  ```
+
+  `null`은 falsy 값이면서 `object` 타입이다.
+
+- 값이 없는 vs 선언되지 않은  
+  값이 없는 변수의 값은 `undefined`이며, `typeof` 결과는 `'undefined'`이다.
+  'undefined'(값이 없는)과 'undefined'(선언되지 않은)는 자바스크립트에서 완전히 다른 개념이다.
+
+  - 'undefined'(값이 없는) : 접근 가능한 스코프에 변수가 선언되었으나 현재 아무런 값도 할당되지 않은 상태
+
+  - 'undefined'(선언되지 않은) : 접근 가능한 스코프에 변수 자체가 선언조차 되지 않은 상태
+
+  ```js
+  var a;
+
+  a; //undefined
+  b; // ReferenceError: b is undefined]
+
+  typeof a; // 'undefined'
+  typeof b; // 'undefined'
+  ```
+
+  선언조차 하지 않은 변수 b를 `typeof` 해도 브라우저는 오류 처리를 하지 않고 'undefined'로 나온다. 이것이 `typeof`만의 독특한 안전가드이다.
+
+- `function`은 일급 객체이다.
+
+  - 일급 객체의 조건
+    1. 변수에 저장할 수 있어야 한다.
+    2. 함수의 파라미터로 전달할 수 있어야 한다.
+    3. 함수의 반환값으로 사용할 수 있어야 한다.
+    4. 자료구조에 저장할 수 있어야 한다.
