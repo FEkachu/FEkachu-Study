@@ -31,7 +31,7 @@
       <img src="" width="100px;" alt="좌정현"/>
     </td>    
     <td align="center">
-      <img src="" width="100px;" alt="이해인"/>
+      <img src="https://avatars.githubusercontent.com/u/63691786?v=4" width="100px;" alt="이해인"/>
     </td>
   </tr>
   <tr>    
@@ -51,7 +51,7 @@
       </a>
     </td>    
     <td align="center">
-      <a href="">
+      <a href="https://github.com/Haen1231">
         <div>이해인</div>
       </a>
     </td>
