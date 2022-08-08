@@ -345,3 +345,4 @@ function hello() {
 [var, let, const의 차이 ⏤ 변수 선언 및 할당, 호이스팅, 스코프](https://www.howdy-mj.me/javascript/var-let-const/)
 
 [호이스팅 - 용어 사전 | MDN](https://developer.mozilla.org/ko/docs/Glossary/Hoisting)
+
