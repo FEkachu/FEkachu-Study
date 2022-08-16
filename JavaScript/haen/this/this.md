@@ -20,7 +20,37 @@
 
     - this는 작성시점이아닌 **런타임 시점**에 바인딩된다
     - 함수를 호출시 실행 컨텍스트가 생성되며 this는 실행 컨텍스트 안에 있는 정보 중 하나로 실행되는 동안 이용할 수 있다.
+### 그렇다면 함수 호출 방법은 ⁉️
 
+1. 함수 호출
+2. 메소드 호출
+3. 생성자 함수 호출
+4. apply/call/bind 호출
+
+위의 4가지가 존재한다.
+
+```jsx
+var foo = function () {
+  console.dir(this);
+};
+
+// 1. 함수 호출
+foo(); // window
+// window.foo();
+
+// 2. 메소드 호출
+var obj = { foo: foo };
+obj.foo(); // obj
+
+// 3. 생성자 함수 호출
+var instance = new foo(); // instance
+
+// 4. apply/call/bind 호출
+var bar = { name: 'bar' };
+foo.call(bar);   // bar
+foo.apply(bar);  // bar
+foo.bind(bar)(); // bar
+```
 ### Reference
 
 [this | PoiemaWeb](https://poiemaweb.com/js-this)
