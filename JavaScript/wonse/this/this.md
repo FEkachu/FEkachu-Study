@@ -23,12 +23,12 @@ console.log(this.a);
 
 ```jsx
 var func = function (x) {
-	console.log(this.x);
+  console.log(this.x);
 };
 func(1);
 
 var obj = {
-	method: func
+  method: func
 };
 obj.method(2);
 ```
@@ -97,3 +97,61 @@ f2() === undefined; // true
 반면에 엄격 모드에서 this 값은 실행 문맥에 진입하며 설정되는 값을 유지하므로 위 예시처럼 this가 undefined로 남아있다. 위에 작성한 바에 따르면 함수를 객체의 메서드나 프로퍼티가 아닌 직접 호출을 하게되면 this가 전역 객체를 반환해야 하는데 이는 비엄격 모드에서의 경우를 말하는 것이다. 엄격 모드를 처음 지원하기 시작한 초기 브라우저에서는 window 객체를 잘못 반환하였다.
 
 [this - JavaScript | MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/this)
+
+## 6. 명시적으로 this를 바인딩하는 방법
+
+명시적으로 this를 바인딩하는 방법으로는 call, apply, bind 메서드를 사용하는 방법이 있다.
+
+### a. call 메서드
+
+```jsx
+Function.prototype.call(thisArg[, arg1[, arg2[,...]]])
+```
+
+call 메서드의 첫 번째 인자를 this로 바인딩하고, 이후의 인자들을 호출할 함수의 매개변수로 한다. 함수를 그냥 실행하면 this는 전역객체를 참조하지만 call 메서드를 이용하면 임의의 객체를 this로 지정할 수 있다.
+
+### b. apply 메서드
+
+```jsx
+Function.prototype.apply(thisArg[, argsArray])
+```
+
+apply 메서드는 call 메서드와 기능적으로 완전히 동일하며 인자의 의미가 약간 다르다. apply 메서드는 두 번째 인자를 배열로 받아 그 배열의 요소들을 호출할 함수의 매개변수로 지정한다는 차이점이 있다.
+
+이런 call이나 apply 메서드를 활용하면 자바스크립트를 더욱 다채롭게 사용할 수 있다. 예를 들면 유사배열객체에 배열 메서드를 적용하는 경우가 있다. 객체에는 배열 메서드를 직접 적용할 수 없지만, 그 객체가 유사배열객체인 경우 call 또는 apply 메서드를 이용해 배열 메서드를 차용할 수 있다.
+
+```jsx
+var obj = {
+	0: 'a',
+	1: 'b',
+	2: 'c',
+	length: 3
+};
+Array.prototype.push.call(obj, 'd');
+console.log(obj); // { 0: 'a', 1: 'b', 2: 'c', 3: 'd', length: 4 }
+
+var arr = Arrayl.prototype.slice.call(obj);
+console.log(arr); // ['a', 'b', 'c', 'd'] (얕은 복사)
+```
+
+위의 예시는 유사배열객체에서 배열 메서드를 활용하기 위해 call 메서드를 사용한 예시이다. 함수 내부에서 접근할 수 있는 arguments 객체도 유사배열객체이며 querySelectorAll, getElementsByClassName 등의 Node 선택자로 선택한 결과인 NodeList도 유사배열객체이기 때문에 위 예시와 같이 call, apply 메서드를 활용하여 배열의 메서드를 사용할 수 있다.
+
+하지만 사실 위와 같이 call, apply 메서드를 활용하는 것은 ‘this를 원하는 값으로 지정해서 호출한다'라는 본래의 메서드의 의도와는 다소 동떨어진 활용법으로 보인다.
+
+여러 개의 인수를 받는 메서드에게 하나의 배열로 인수들을 전달하고 싶을 때 apply 메서드는 정말 유용하다.
+
+```jsx
+var numbers = [10, 20, 3, 16, 45];
+var max = Math.max.apply(null, numbers);
+var min = Math.min.apply(null, numbers);
+```
+
+하지만 사실 이보다 간단한 방법도 있다. 바로 스프레드 연산자를 사용하는 방법이다.
+
+```jsx
+const numbers = [10, 20, 3, 16, 45];
+const max = Math.max(...numbers);
+const min = Math.min(...numbers);
+```
+
+call/apply 메서드는 명시적으로 별도의 this를 바인딩하면서 함수 또는 메서드를 실행하는 훌륭한 방법이지만 오히려 이로 인해 this를 예측하기 어렵게 만들어 코드 해석을 방해한다는 단점이 있다. 그럼에도 불구하고 ES5 이하의 환경에서는 마땅한 대안이 없기 때문에 실무에서 매우 광범위하게 활용되고 있다고 한다.
