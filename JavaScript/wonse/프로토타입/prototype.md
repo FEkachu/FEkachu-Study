@@ -1,6 +1,6 @@
 ## 1. 프로토타입이란
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2140e56a-34bf-48ad-91fe-e5cff6431960/Untitled.png)
+![Untitled](https://user-images.githubusercontent.com/62709718/187012140-dca7cf91-7e71-4912-8c88-2235f258a952.png)
 
 이 도식을 보고 프로토타입에 대해 정확하지는 않지만 어느 정도의 그림이 그려지기 시작했다. 위 그림은 다음의 코드 내용을 추상화한 그림이다.
 
@@ -61,17 +61,18 @@ console.log(iu.__proto__.getName.call(iu)); // 지금
 
 프로토타입 체인에 대해 알아보기 전에 `console.dir` 을 통해 객체와 배열의 내부 구조에 대해 살펴보도록 한다.
 
-![스크린샷 2022-08-27 오전 1.00.53.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/891be6bc-5bb3-45ea-915a-a7f29b7fb131/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-08-27_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_1.00.53.png)
+<img width="481" alt="스크린샷 2022-08-27 오전 1 00 53" src="https://user-images.githubusercontent.com/62709718/187012171-80f0e4ff-e863-41ad-81f7-e19e378fe3eb.png">
+
 
 먼저 객체의 내부 구조이다. 첫 줄은 Object의 인스턴스다를 보여주는 줄이고, 그 다음엔 프로퍼티 a도 보인다. __proto__ 내부를 살펴보면 꽤 익숙한 메서드들이 보이며, constructor는 생성자 함수인 Object를 가리키고 있다. 이번엔 배열의 내부 구조를 살펴보겠다.
 
-![스크린샷 2022-08-27 오전 1.05.58.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4a586830-6f95-44cc-888b-393f8b4aab05/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-08-27_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_1.05.58.png)
-
-![스크린샷 2022-08-27 오전 1.06.08.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/91655cfd-d303-4e86-82fe-f3e120ba55ea/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-08-27_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_1.06.08.png)
+<img width="481" alt="1" src="https://user-images.githubusercontent.com/62709718/187012184-59b2530f-2e94-426a-8b44-821b66dce7f9.png">
+<img width="481" alt="2" src="https://user-images.githubusercontent.com/62709718/187012188-51213d9a-0e29-4d95-987f-bd939f0e9988.png">
 
 __proto__ 에 메서드가 너무 많아서 일부는 생략하였다. 배열 리터럴의 __proto__에는 당연하게도 pop, push 등의 익숙한 배열 메서드 및 constructor가 있다. 여기서 특이한 점은 __proto__안에 또 다시 __proto__가 등장한다는 것이다. 또 그리고 그것을 열어보니 위에서 살펴본 객체의 __proto__와 동일한 내용으로 이뤄져 있다. 그 이유는 바로 prototype 객체가 ‘객체'이기 때문이다. 기본적으로 모든 객체의 __proto__에는 Object.prototype이 연결된다. 이를 그림으로 보면 더욱 쉽다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a646dd86-9093-4aac-aab9-4bbaaa1d8ace/Untitled.png)
+![3](https://user-images.githubusercontent.com/62709718/187012210-a9c33752-9b02-4948-9e5f-744fe970b1fd.png)
+
 
 __proto__는 생략이 가능하다. 그렇기 때문에 배열이 Array.prototype 내부의 메서드를 자신의 것처럼 사용할 수 있었고 마찬가지로 Object.prototype 내부의 메서드도 자신의 것처럼 실행할 수 있는 것이다.
 
@@ -115,6 +116,7 @@ Grade.prototype = [];
 
 이 한 줄의 코드로 서로 별개로 분리돼 있던 데이터가 연결되어 아래와 같은 프로토타입 체인의 형태를 띠게 된다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0d78a81f-dd15-438d-b25d-c781d52593bd/Untitled.png)
+![4](https://user-images.githubusercontent.com/62709718/187012214-3a4d9d34-467d-42dd-bbed-ef6f6144a5f5.png)
+
 
 결과적으로 인스턴스 g는 프로토타입 체인에 따라 g 객체 자신이 지니는 멤버, Grade의 prototype에 있는 멤버, Array.prototype에 있는 멤버 마지막으로 Object.prototype에 있는 멤버까지 자신의 것처럼 접근 가능하게 된다.
