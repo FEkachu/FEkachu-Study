@@ -36,7 +36,7 @@
         
         마지막에 length가 1이 될 수 있던 이유는 g.__proto__가 Grade.prototype = []을 참조하고 있기 때문이다.
         
-        ![책에 적힌대로 결과가 나오지 않는데 이유를 정확하게 모르겠다.](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f60e58ac-5804-4dbe-ab4a-ad878e85e410/Untitled.png)
+        ![책에 적힌대로 결과가 나오지 않는데 이유를 정확하게 모르겠다.](../image/class1.png)
         
         책에 적힌대로 결과가 나오지 않는데 이유를 정확하게 모르겠다.
         
@@ -62,7 +62,7 @@
         console.log(g);
         ```
         
-        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2a4d9141-d521-4d8f-b33d-f0b27717602c/Untitled.png)
+        ![Untitled](../image/class2.png)
         
         위와 같이 Grade.prototype에 length가 4인 배열을 할당한 경우에 delete g.length를 하였다. 이후에 g에 length가 존재하지 않기 때문에 g.__proto__에 있는 length : 4를 참조하게 되고, 이를 통해 3번 인덱스가 비어 있는 결과 배열이 탄생하게 된다.
         
@@ -94,7 +94,7 @@
         console.log(new sq.constructor(2,3));
         ```
         
-        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8f683b1a-c006-4fb1-b1cb-b4bc649ebcb1/Untitled.png)
+        ![Untitled](../image/class3.png)
         
         - 하위 클래스로 삼을 생성자 함수의 prototype에 상위 클래스의 인스턴스를 부여하는 방법으로 간단하게 상속을 구현할 수 있지만 다양한 문제를 발생 시킬 수 있어 구조적 안정성이 떨어진다.
     - 클래스가 구체적인 데이터에 지나지 않게 하는 방법
