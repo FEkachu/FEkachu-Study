@@ -141,3 +141,100 @@
             Square.prototype = Object.create(Rectangle.prototype);
             Object.freeze(Square.prototype);
             ```
+
+## Singleton Pattern
+
+전체 시스템에서 클래스에 대한 인스턴스가 하나만 존재하도록 보장하는 ‘객체 생성 패턴'이다. 
+
+- 싱글톤 패턴의 장점
+    
+    싱글톤 패턴을 사용할 시 장점은 고정된 메모리 영역에 인스턴스 하나만을 사용하기 때문에 **메모리 낭비를 방지**할 수 있다. 또한, 싱글톤으로 만들어진 인스턴스는 전역이기 때문에 **다른 클래스의 인스턴스들이 데이터를 공유하기 쉬워진다.** 
+    
+- 싱글톤 패턴의 단점
+    
+    싱글톤 인스턴스가 너무 많은 일을 하거나 많은 데이터를 공유하게 되면, 시스템의 결합도가 높아지기 때문에 주의해야 한다. 높은 결합도를 가진 프로그램은 유지보수가 어려워진다. 
+    
+
+### Singleton 구현
+
+단순 전역 변수에 객체 리터럴로 생성하는 작업도 싱글톤이라고 할 수 있다. 하지만, 전역 변수를 사용하기 보다는 클래스 자신이 자기의 유일한 인스턴스로 접근하는 방법을 자체적으로 관리하게 하는 것이 더 좋은 방법이다. 
+
+이러한 방법은 클래스 외부에서는 인스턴스를 생성하지 못하게 하고, 내부에는 단 하나의 인스턴스를 생성해 외부에서 그 인스턴스에 접근할 수 있는 방법을 제공할 수 있다.
+
+싱글톤 구현에 필요한 요소
+
+- 외부 클래스로부터 인스턴스 생성을 차단한다.
+- 인스턴스에 직접 접근하는 것을 차단한다.
+- 인스턴스에 대한 접점을 제공한다.
+
+```jsx
+class Car{
+  #name;
+  #companyName;
+  #breakOil = 'bullsOneShot';
+  #totalFuel = 80;
+  #fuelEfficiency = 15;
+
+  constructor(name, companyName){
+    this.#name = name;
+    this.#companyName = companyName;
+  }
+
+  static draggedByRekCar(instance){
+    return `${instance.#companyName} car is dragged by RekCar. ${instance.#name} so sad`;
+  }
+
+  #changeBreakOil(breakOilName){
+    this.#breakOil = breakOilName;
+  }
+
+  getPosibleTotalDistanceTravel() {
+    return this.#totalFuel * this.#fuelEfficiency;
+  }
+
+  getName = () =>{
+    return this.#name;
+  }
+
+  getCompanyName = () =>{
+    return this.#companyName;
+  }
+}
+
+const car = new Car("현민",'카카오');
+const car2 = new Car("해인", '네이버');
+
+class ElectronicCar extends Car {
+  #governmentSubsidy = 1000;
+  static #instance;
+
+  constructor(name, companyName){
+    if(ElectronicCar.#instance){
+      return ElectronicCar.#instance;
+    } 
+    super(name, companyName);
+    ElectronicCar.#instance = this; 
+  }
+
+  decreaseGovernmentSubsidy = (amount) => {
+    this.#governmentSubsidy -= amount;
+  }
+
+  increaseGovernmentSubsidy = (amount) => {
+    this.#governmentSubsidy += amount;
+  }
+}
+
+console.log(Car.draggedByRekCar(car));
+console.log(Car.draggedByRekCar(car2));
+
+let eCar1 = new ElectronicCar('준범', '아우디');
+let eCar2 = new ElectronicCar('해인', '포르쉐');
+console.log(eCar1 === eCar2);
+console.log(eCar1);
+console.log(eCar2);
+console.log(eCar1.getName())
+console.log(eCar2.getName())
+```
+
+[[JS] 싱글톤 패턴 (Singleton Pattern)](https://woong-jae.com/javascript/220319-singleton-pattern)
