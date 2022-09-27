@@ -1,18 +1,17 @@
 class Car {
-  static #instance;
-  // Singleton
-  // Car 인스턴스는 하나만 생성된다
-  constructor() {
-    if (Car.#instance) return Car.#instance;
-    Car.#instance = this;
-  }
-
-  #color = "White";
-  #year = 2020;
+  #carName;
+  #color;
+  #year;
   #fuel = 50;
   #fuelEfficiency = 15;
   #wiper = false;
   #light = false;
+
+  constructor(carName, color, year) {
+    this.#carName = carName;
+    this.#color = color;
+    this.#year = year;
+  }
 
   #checkFuel() {
     if (this.#fuel < 10) return "기름 부족 !!";
@@ -46,18 +45,51 @@ class Car {
 }
 
 class ElectronicCar extends Car {
+  static #instance;
   #batteryWeight;
-  constructor() {
-    super();
+
+  // Singleton
+  constructor(carName, color, year) {
+    if (ElectronicCar.#instance) return ElectronicCar.#instance;
+    super(carName, color, year);
+    ElectronicCar.#instance = this;
   }
 }
 
-const myCar = new Car();
-const yourCar = new Car();
-console.log(myCar === yourCar);
-console.dir(myCar);
-myCar.controlLight();
-myCar.controlWiper();
-yourCar.controlWiper();
-const car2 = new ElectronicCar();
-console.log(Car.compareColor(myCar, car2));
+class Driver {
+  #name;
+  #age;
+  #license;
+  #drivingExperience;
+  car;
+  constructor(name, age, license, drivingExperience, car) {
+    this.#name = name;
+    this.#age = age;
+    this.#license = license;
+    this.#drivingExperience = drivingExperience;
+    this.car = car;
+  }
+
+  judgeBeginner() {
+    if (this.#drivingExperience <= 1) console.log("초보운전입니다.");
+    else console.log(`운전 경력 : ${this.#drivingExperience}년`);
+  }
+
+  changeCar(newCar) {
+    this.car = newCar;
+    console.log("차 바꿈");
+    console.log(this.car);
+  }
+}
+
+const myElectronicCar = new ElectronicCar("붕붕이", "white", 2020);
+const jeonghyeon = new Driver("정현", 25, false, 0, myElectronicCar);
+
+console.log(jeonghyeon);
+jeonghyeon.car.controlWiper();
+
+const newCar = new Car("뉴카", "black", 2022);
+
+setTimeout(() => {
+  jeonghyeon.changeCar(newCar);
+}, 3000);
