@@ -22,7 +22,7 @@
 <table>
   <tr>
     <td align="center">
-      <img src="https://user-images.githubusercontent.com/62709718/168320615-0e31581a-2419-401b-8202-f3e9889a5d31.png" width="100px;" alt="신원세"/>
+      <img src="https://user-images.githubusercontent.com/62709718/198602718-768be0bc-5cb4-4df3-be8d-3289c4f691db.jpg" width="100px;" alt="신원세"/>
     </td>
     <td align="center">
       <img src="https://avatars.githubusercontent.com/u/62276222?v=4" width="100px;" alt="이광해"/>
@@ -57,3 +57,7 @@
     </td>
   </tr>
 </table>
+
+## 💾 스터디 내용
+### Network
+- [HTTP에 대하여]()
