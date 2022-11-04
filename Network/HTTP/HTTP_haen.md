@@ -34,7 +34,7 @@
 - `Head Of Line Blocking (HOL)`: 결국 앞 요청의 응답이 너무 오래걸리면 뒤 요청은 `Blocking` 되어버림
 - `Header 구조의 중복`: 연속된 요청의 헤더의 많은 중복이 발생
 
-![Untitled](../img/http1.png)
+![Untitled](../../JavaScript/haen/img/http1.png)
 
 ## 4. HTTP 2.0
 
@@ -117,10 +117,10 @@
     - 전달 오류 수정
     - 연결 마이그레이션
 
-![Untitled](../img/http2.png)
+![Untitled](../../JavaScript/haen/img/http2.png)
 ## TLS
 
-![IMG_7AFF1A08B397-1.jpeg](../img/http3.jpeg)
+![IMG_7AFF1A08B397-1.jpeg](../../JavaScript/haen/img/http3.jpeg)
 ### Reference
 
 [HTTP의 진화 - HTTP | MDN](https://developer.mozilla.org/ko/docs/Web/HTTP/Basics_of_HTTP/Evolution_of_HTTP)
