@@ -41,12 +41,12 @@
       </a>
     </td>
     <td align="center">
-      <a href="">
+      <a href="https://github.com/PangHae">
         <div>이광해</div>
       </a>
     </td>
     <td align="center">
-      <a href="">
+      <a href="https://github.com/imhynni">
         <div>좌정현</div>
       </a>
     </td>    
